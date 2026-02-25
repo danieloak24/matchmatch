@@ -1,0 +1,20 @@
+function calculateElo(ratingA, ratingB, scoreA, scoreB) {
+  const K = 32; // Коэффициент скорости изменения рейтинга
+  const actualScoreA = scoreA > scoreB ? 1 : 0;
+  
+  // Вероятность победы игрока А
+  const expectedScoreA = 1 / (1 + Math.pow(10, (ratingB - ratingA) / 400));
+  
+  // Новый рейтинг
+  const newRatingA = Math.round(ratingA + K * (actualScoreA - expectedScoreA));
+  const diff = newRatingA - ratingA;
+  
+  return {
+    newRatingA: newRatingA,
+    newRatingB: ratingB - diff // Игрок B теряет столько же, сколько получил А
+  };
+}
+
+// Пример: Игрок 1000 очков победил Игрока 1200 очков
+console.log(calculateElo(1000, 1200, 21, 15)); 
+// Результат будет около +25 очков новичку за победу над профи.
