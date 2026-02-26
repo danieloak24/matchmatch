@@ -1,3 +1,4 @@
+app.use(express.static('public'));
 const db = require('./config/db'); 
 const express = require('express');
 const cors = require('cors');
@@ -11,7 +12,7 @@ app.use(express.json());
 
 // 2. Раздача статических файлов (твои index.html, style.css, app.js из папки public)
 // Теперь при заходе на http://localhost:3000/ будет открываться твой фронтенд
-app.use(express.static('public'));
+
 
 // 3. API Маршруты (теперь фронтенд с API_URL = '/api' достучится сюда)
 app.get(['/api', '/api/'], (req, res) => {
