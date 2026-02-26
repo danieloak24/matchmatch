@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>MatchMatch | Badminton Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏸 MatchMatch</h1>
+            <p id="status">Подключение к серверу...</p>
+        </header>
+
+        <main>
+            <section id="auth-section">
+                <h2>Регистрация игрока</h2>
+                <form id="regForm">
+                    <input type="text" id="username" placeholder="Никнейм" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Пароль" required>
+                    <button type="submit">Вступить в клуб</button>
+                </form>
+            </section>
+
+            <section id="stats">
+                <h2>Топ игроков</h2>
+                <ul id="playerList">
+                    </ul>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

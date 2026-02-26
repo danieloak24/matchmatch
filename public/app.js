@@ -1,12 +1,15 @@
-const API_URL = 'http://matchmatch.org/api'; // Замени на свой домен или IP
+const API_URL = '/api'; // Относительный путь
 
 async function checkStatus() {
     try {
-        const res = await fetch(`${API_URL}/`);
+        // Убедись, что здесь нет лишних точек или слэшей
+        const res = await fetch(API_URL); 
         const data = await res.json();
-        document.getElementById('status').innerText = '✅ Сервер онлайн: ' + data.message;
+        
+        document.getElementById('status').innerText = '✅ ' + data.message;
         document.getElementById('status').style.color = '#00ff00';
     } catch (err) {
+        console.error("Ошибка связи:", err);
         document.getElementById('status').innerText = '❌ Сервер недоступен';
         document.getElementById('status').style.color = '#ff4d4d';
     }
