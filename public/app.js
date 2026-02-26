@@ -3,7 +3,7 @@ const API_URL = '/api'; // Относительный путь
 async function checkStatus() {
     try {
         // Убедись, что здесь нет лишних точек или слэшей
-        const res = await fetch(API_URL); 
+        const res = await fetch(`${API_URL}/status`);
         const data = await res.json();
         
         document.getElementById('status').innerText = '✅ ' + data.message;
@@ -16,3 +16,5 @@ async function checkStatus() {
 }
 
 checkStatus();
+
+
