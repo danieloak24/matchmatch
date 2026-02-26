@@ -1,4 +1,5 @@
-const db = require('./config/db'); // Добавь это в начало файла
+const db = require('./config/db'); 
+app.use(express.static('public'));
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
