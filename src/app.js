@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const db = require('./config/db'); // Тот самый файл с mysql2
+const db = require('./config/db'); 
 const app = express();
 
 app.use(cors());
@@ -45,10 +45,9 @@ app.get('/api/status', (req, res) => {
   res.json({ message: "Бэкенд онлайн! 🏸" });
 });
 
-// 2. НОВЫЙ РОУТ: Регистрация игрока
+// 2. Роут регистрации
 app.post('/api/register', async (req, res) => {
     const { name, phone, level } = req.body;
-    
     try {
         const [result] = await db.execute(
             'INSERT INTO players (name, phone, level) VALUES (?, ?, ?)',
@@ -61,18 +60,12 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// 3. Главная страница (явно прописываем путь)
-app.get('/', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
-});
-
-// 4. Ловушка для всех остальных путей (404) — Исправленный синтаксис
-app.get('/:any*', (req, res) => {
+// 3. Обработка всех остальных запросов (вместо :any*)
+app.get('*', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 });
 
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Сервер работает на порту ${PORT}`);
-    console.log(`📂 Ищу файлы в: ${publicPath}`);
 });
