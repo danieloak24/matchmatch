@@ -1,22 +1,17 @@
-const { Pool } = require('pg');
+const mysql = require('mysql2');
 require('dotenv').config();
 
-// Создаем пул соединений, используя данные из файла .env
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+// Создаем пул соединений для MySQL
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
-// Проверка подключения
-pool.query('SELECT NOW()', (err, res) => {
-  if (err) {
-    console.error('❌ Ошибка подключения к базе данных:', err.stack);
-  } else {
-    console.log('✅ База данных подключена успешно!');
-  }
-});
-
-module.exports = pool;
+// Экспортируем версию с промисами для async/await
+module.exports = pool.promise();
